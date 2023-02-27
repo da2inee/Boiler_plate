@@ -6,9 +6,24 @@ function LandingPage() {
         axios.get('/api/hello')
         .then(response => console.log(response.data))
     },[])
+
+    const onClickHandler = (props) => {
+        axios.get('/api/users/logout')
+        .then(response => {
+            if(response.data.success) {
+                props.history.push("/login")
+            }else{
+                alert('로그아웃하는데 실패하였습니다.')
+            }
+        })
+    }
     return (
-        <div>
-            hi my name is dain
+        <div style = {{
+            display: 'flex',justifyContent: 'center', alignItems: 'center'
+        }}>
+            <button onClick={onClickHandler}>
+                로그아웃
+            </button>
         </div>
     )
 }
