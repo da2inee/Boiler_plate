@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import Axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../../../_actions/user_action';
+import { useNavigate } from 'react-router-dom';
 function LoginPage(props) {
     const dispatch = useDispatch();
+    let navigate = useNavigate();
     
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
@@ -18,14 +20,15 @@ function LoginPage(props) {
         event.preventDefault();
 
         let body = {
-            emailL :Email,
+            email :Email,
             password : Password
         }
 
         dispatch(loginUser(body))
             .then(response => {
                 if(response.payload.loginSuccess){
-                    props.history.push('/')
+                    navigate('/')
+                    alert('성공')
                 }else {
                     alert('Error')
                 }
